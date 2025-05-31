@@ -11,18 +11,18 @@ import { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import { keepPreviousData } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
-import { type MovieResults } from "../../types/movie";
+import { type MovieResults } from "../../services/movieService";
 import css from "./App.module.css";
 
 export default function App() {
     const [selectedCard, setSelectedCard] = useState<Movie | null>(null);
-    const [keyWord, setKeyWord] = useState("");
+    const [keyword, setKeyword] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
 
     const { data, isLoading, isError } = useQuery<MovieResults>({
-        queryKey: ["movies", keyWord, currentPage],
-        queryFn: () => fetchMovies(keyWord, currentPage),
-        enabled: keyWord !== "",
+        queryKey: ["movies", keyword, currentPage],
+        queryFn: () => fetchMovies(keyword, currentPage),
+        enabled: keyword !== "",
         placeholderData: keepPreviousData,
     });
 
@@ -30,13 +30,12 @@ export default function App() {
 
     useEffect(() => {
         if (data?.results.length === 0) {
-            const notify = () => toast.error("No movies found for your request.");
-            notify();
+            toast.error("No movies found for your request.");
         }
     }, [data]);
 
     function handleFormSubmit(searchWord: string) {
-        setKeyWord(searchWord);
+        setKeyword(searchWord);
         setCurrentPage(1);
     }
 
@@ -65,7 +64,7 @@ export default function App() {
             {isLoading && <Loader />}
             {isError && <ErrorMessage />}
             {data && <MovieGrid onSelect={selectCard} movies={data.results} />}
-            {selectedCard && <MovieModal movie={selectedCard} onClose={setSelectedCard} />}
+            {selectedCard && <MovieModal movie={selectedCard} onClose={() => setSelectedCard(null)} />}
         </>
     );
 }

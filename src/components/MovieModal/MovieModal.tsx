@@ -5,13 +5,13 @@ import { useEffect } from "react";
 
 interface MovieModalProps {
     movie: Movie;
-    onClose: (movie: null) => void;
+    onClose: () => void;
 }
 
 export default function MovieModal({ movie, onClose }: MovieModalProps) {
     const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
         if (event.target === event.currentTarget) {
-            onClose(null);
+            onClose();
         }
     };
 
@@ -20,7 +20,7 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
 
         function handleKeyDown(e: KeyboardEvent) {
             if (e.key === "Escape") {
-                onClose(null);
+                onClose();
             }
         }
         document.addEventListener("keydown", handleKeyDown);
@@ -33,10 +33,10 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
     return createPortal(
         <div className={css.backdrop} role="dialog" aria-modal="true" onClick={handleBackdropClick}>
             <div className={css.modal}>
-                <button className={css.closeButton} aria-label="Close modal" onClick={() => onClose(null)}>
+                <button className={css.closeButton} aria-label="Close modal" onClick={onClose}>
                     &times;
                 </button>
-                <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className={css.image} />
+                <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} alt={movie.title} className={css.image} />
                 <div className={css.content}>
                     <h2>{movie.title}</h2>
                     <p>{movie.overview}</p>
