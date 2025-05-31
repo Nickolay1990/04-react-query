@@ -1,6 +1,6 @@
 import styles from "./SearchBar.module.css";
 import toast from "react-hot-toast";
-import ToasterMessage from "../Toaster/Toaster";
+import { Toaster } from "react-hot-toast";
 
 interface SearchBarProps {
     onSubmit: (data: string) => void;
@@ -37,7 +37,7 @@ export default function SearchBar({ onSubmit }: SearchBarProps) {
                     </button>
                 </form>
             </div>
-            <ToasterMessage />
+            <Toaster />
         </header>
     );
 }
