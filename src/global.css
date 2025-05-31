@@ -1,0 +1,34 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+ul,
+ol {
+    list-style-type: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+button {
+    display: block;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: currentColor;
+    transition: color 250ms;
+}
+
+input,
+select {
+    outline: none;
+}
