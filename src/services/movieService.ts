@@ -8,9 +8,6 @@ export interface MovieResults {
     total_pages: number;
 }
 
-axios.defaults.baseURL = "https://jsonplaceholder.typicode.com";
-axios.defaults.headers.common["Authorization"] = `Bearer ${myKey}`;
-
 export async function fetchMovies(data: string, page: number): Promise<MovieResults> {
     const params = {
         query: data,
@@ -19,6 +16,7 @@ export async function fetchMovies(data: string, page: number): Promise<MovieResu
 
     const result = await axios.get<MovieResults>(`https://api.themoviedb.org/3/search/movie`, {
         params,
+        headers: { Authorization: `Bearer ${myKey}` },
     });
 
     return result.data;
